@@ -29,4 +29,8 @@ public class CONSTANTS{
         new Texture("black queen.png"),
         new Texture("black king.png")
     };
+    
+    public static final float WORLD_WIDTH = 800; 
+    public static final float WORLD_HEIGHT = 800;
+    public static final float SQUARE_SIZE = 100;
 }

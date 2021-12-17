@@ -30,25 +30,30 @@ public class FirstDrawing extends ApplicationAdapter
     private BitmapFont font; //used to draw fonts (text)
     private SpriteBatch batch; //also needed to draw fonts (text)
 
-    public static final float WORLD_WIDTH = 600; 
-    public static final float WORLD_HEIGHT = 800;
-
+    
+    private int mouseX;
+    private int mouseY;
+    
+    private boolean isWhite;
     @Override//called once when we start the game
     public void create(){
 
         camera = new OrthographicCamera(); 
-        viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera); 
+        viewport = new FitViewport(CONSTANTS.WORLD_WIDTH, CONSTANTS.WORLD_HEIGHT, camera); 
         renderer = new ShapeRenderer(); 
         font = new BitmapFont(); 
         batch = new SpriteBatch();//if you want to use images instead of using ShapeRenderer 
-
+        
+        mouseX = -1;
+        mouseY = -1;
+        isWhite = true;
     }
 
     @Override//called 60 times a second
     public void render(){
         renderSetup();
         
-        
+        drawBoard();
     }
     @Override
     public void resize(int width, int height){
@@ -73,5 +78,28 @@ public class FirstDrawing extends ApplicationAdapter
         
     }
     
-    
+    private void drawBoard(){
+        renderer.begin(ShapeType.Filled);
+
+        //if(Gdx.input.justTouched()){
+            mouseX = Gdx.input.getX();
+            mouseY = Gdx.input.getY();
+        //}
+        Vector2 v = viewport.unproject(new Vector2(mouseX,mouseY));
+        for(int y = 0; y<=8; y++){
+
+            for(int x = 0; x<=8; x++){
+                if((int)v.x/100==x && (int)v.y/100==y)
+                    renderer.setColor(Color.GREEN);
+                else if(isWhite)
+                    renderer.setColor(Color.BLACK);
+                else
+                    renderer.setColor(Color.WHITE);
+                renderer.rect(x*CONSTANTS.SQUARE_SIZE, y*CONSTANTS.SQUARE_SIZE, CONSTANTS.SQUARE_SIZE, CONSTANTS.SQUARE_SIZE);
+                isWhite = !isWhite;
+            }
+        }
+        isWhite = !isWhite;
+        renderer.end();
+    }
 }

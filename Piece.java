@@ -8,4 +8,16 @@ class Piece{
         this.position = position;
     }
     
+    public int getPiece(){
+        return piece;
+    }
+    
+    public Vector2 getPosition(){
+        return position;
+    }
+    
+    public void setPostition(Vector2 v){
+        position = v;
+    }
+    
 }

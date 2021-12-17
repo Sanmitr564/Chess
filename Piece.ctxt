@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Piece
+comment1.params=piece\ position
+comment1.target=Piece(int,\ com.badlogic.gdx.math.Vector2)
+comment2.params=
+comment2.target=int\ getPiece()
+comment3.params=
+comment3.target=com.badlogic.gdx.math.Vector2\ getPosition()
+comment4.params=v
+comment4.target=void\ setPostition(com.badlogic.gdx.math.Vector2)
+numComments=5
