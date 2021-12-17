@@ -1,5 +1,6 @@
 import com.badlogic.gdx.graphics.Texture;
-public class CONSTANTS{
+import java.util.*;
+public class GLOBAL{
     public static final int WHITE_PAWN = 0;
     public static final int WHITE_ROOK = 1;
     public static final int WHITE_HORSE = 2;
@@ -33,4 +34,8 @@ public class CONSTANTS{
     public static final float WORLD_WIDTH = 800; 
     public static final float WORLD_HEIGHT = 800;
     public static final float SQUARE_SIZE = 100;
+    
+    public static ArrayList<Piece> PIECE_LIST = new ArrayList<Piece>();
+    
+    public static int[][] board = new int[8][8];
 }

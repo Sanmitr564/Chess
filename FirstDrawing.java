@@ -39,7 +39,7 @@ public class FirstDrawing extends ApplicationAdapter
     public void create(){
 
         camera = new OrthographicCamera(); 
-        viewport = new FitViewport(CONSTANTS.WORLD_WIDTH, CONSTANTS.WORLD_HEIGHT, camera); 
+        viewport = new FitViewport(GLOBAL.WORLD_WIDTH, GLOBAL.WORLD_HEIGHT, camera); 
         renderer = new ShapeRenderer(); 
         font = new BitmapFont(); 
         batch = new SpriteBatch();//if you want to use images instead of using ShapeRenderer 
@@ -54,6 +54,8 @@ public class FirstDrawing extends ApplicationAdapter
         renderSetup();
         
         drawBoard();
+        
+        
     }
     @Override
     public void resize(int width, int height){
@@ -95,11 +97,19 @@ public class FirstDrawing extends ApplicationAdapter
                     renderer.setColor(Color.BLACK);
                 else
                     renderer.setColor(Color.WHITE);
-                renderer.rect(x*CONSTANTS.SQUARE_SIZE, y*CONSTANTS.SQUARE_SIZE, CONSTANTS.SQUARE_SIZE, CONSTANTS.SQUARE_SIZE);
+                renderer.rect(x*GLOBAL.SQUARE_SIZE, y*GLOBAL.SQUARE_SIZE, GLOBAL.SQUARE_SIZE, GLOBAL.SQUARE_SIZE);
                 isWhite = !isWhite;
             }
         }
         isWhite = !isWhite;
         renderer.end();
+    }
+    
+    private Vector2 mouseBoard(){
+        return new Vector2(mouseX/100, mouseY/100);
+    }
+    
+    private Vector2 mouseSquare(){
+        return new Vector2(mouseX%100, mouseY%100);
     }
 }

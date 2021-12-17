@@ -3,9 +3,13 @@ import com.badlogic.gdx.math.Vector2;
 class Piece{
     private int piece;
     private Vector2 position;
+    private Texture texture;
+    private boolean isSelected;
     public Piece(int piece, Vector2 position){
         this.piece = piece;
         this.position = position;
+        texture = GLOBAL.PIECE_TEXTURES[piece];
+        isSelected = false;
     }
     
     public int getPiece(){
@@ -20,4 +24,11 @@ class Piece{
         position = v;
     }
     
+    public void setSelected(boolean b){
+        isSelected = b;
+    }
+    
+    public boolean isSelected(){
+        return isSelected();
+    }
 }
