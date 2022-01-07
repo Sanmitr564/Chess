@@ -57,7 +57,8 @@ public class FirstDrawing extends ApplicationAdapter
         renderSetup();
 
         drawBoard();
-
+        
+        System.out.println(mouseBoard());
     }
 
     @Override
