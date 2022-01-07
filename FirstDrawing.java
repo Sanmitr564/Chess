@@ -34,8 +34,10 @@ public class FirstDrawing extends ApplicationAdapter
     private int mouseY;
 
     private Vector2 selectedSquare;
-    
+    private Vector2 mouseClick;
+
     private boolean isWhite;
+
     @Override//called once when we start the game
     public void create(){
 
@@ -48,8 +50,9 @@ public class FirstDrawing extends ApplicationAdapter
         mouseX = -1;
         mouseY = -1;
         isWhite = true;
-        
+
         selectedSquare = new Vector2(-1,-1);
+        mouseClick = new Vector2(-1,-1);
     }
 
     @Override//called 60 times a second
@@ -57,8 +60,9 @@ public class FirstDrawing extends ApplicationAdapter
         renderSetup();
 
         drawBoard();
-        
+
         System.out.println(mouseBoard());
+        System.out.println(mouseSquare());
     }
 
     @Override
@@ -87,15 +91,10 @@ public class FirstDrawing extends ApplicationAdapter
     private void drawBoard(){
         renderer.begin(ShapeType.Filled);
 
-        //if(Gdx.input.justTouched()){
-        //mouseX = Gdx.input.getX();
-        //mouseY = Gdx.input.getY();
-        //}
-        Vector2 v = viewport.unproject(new Vector2(mouseX,mouseY));
         for(int y = 0; y<=8; y++){
 
             for(int x = 0; x<=8; x++){
-                if((int)v.x/100==x && (int)v.y/100==y)
+                if((int)mouseClick.x/100==x && (int)mouseClick.y/100==y)
                     renderer.setColor(Color.GREEN);
                 else if(isWhite)
                     renderer.setColor(Color.BLACK);
@@ -109,18 +108,26 @@ public class FirstDrawing extends ApplicationAdapter
         renderer.end();
     }
 
+    /*
     private Vector2 mouseBoard(){
-        return viewport.unproject(new Vector2(mouseX/GLOBAL.SQUARE_SIZE,mouseY/GLOBAL.SQUARE_SIZE));
+    Vector2 v = viewport.unproject(new Vector2(mouseX/GLOBAL.SQUARE_SIZE,mouseY/GLOBAL.SQUARE_SIZE));
     }
-
+     */
     private Vector2 mouseSquare(){
         return viewport.unproject(new Vector2(mouseX%GLOBAL.SQUARE_SIZE,mouseY%GLOBAL.SQUARE_SIZE));
     }
-    
+
     private void processInput(){
         if(Gdx.input.justTouched()){
             selectedSquare = mouseBoard();
         }
     }
-    
+
+    private void update(){
+        if(Gdx.input.justTouched()){
+            mouseX = Gdx.input.getX();
+            mouseY = Gdx.input.getY();
+        }
+        mouseClick = viewport.unproject(new Vector2(mouseX,mouseY));
+    }
 }

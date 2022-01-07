@@ -24,7 +24,7 @@ public class GLOBAL{
     
     public static final float WORLD_WIDTH = 800; 
     public static final float WORLD_HEIGHT = 800;
-    public static final float SQUARE_SIZE = 100;
+    public static final int SQUARE_SIZE = 100;
     
     public static ArrayList<Piece> PIECE_LIST = new ArrayList<Piece>();
     
