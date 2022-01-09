@@ -5,10 +5,10 @@ class Piece{
     private Vector2 position;
     private Texture texture;
     private boolean isSelected;
-    public Piece(int piece, Vector2 position){
+    public Piece(int piece, int color, Vector2 position){
         this.piece = piece;
         this.position = position;
-        texture = GLOBAL.PIECE_TEXTURES[piece];
+        texture = GLOBAL.PIECE_TEXTURES[piece][color];
         isSelected = false;
     }
     

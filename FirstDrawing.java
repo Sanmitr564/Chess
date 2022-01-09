@@ -30,11 +30,14 @@ public class FirstDrawing extends ApplicationAdapter
     private BitmapFont font; //used to draw fonts (text)
     private SpriteBatch batch; //also needed to draw fonts (text)
 
-    
     private int mouseX;
     private int mouseY;
-    
+
+    private Vector2 selectedSquare;
+    private Vector2 mouseClick;
+
     private boolean isWhite;
+
     @Override//called once when we start the game
     public void create(){
 
@@ -43,20 +46,25 @@ public class FirstDrawing extends ApplicationAdapter
         renderer = new ShapeRenderer(); 
         font = new BitmapFont(); 
         batch = new SpriteBatch();//if you want to use images instead of using ShapeRenderer 
-        
+
         mouseX = -1;
         mouseY = -1;
         isWhite = true;
+
+        selectedSquare = new Vector2(-1,-1);
+        mouseClick = new Vector2(-1,-1);
     }
 
     @Override//called 60 times a second
     public void render(){
         renderSetup();
-        
+
         drawBoard();
-        
-        
+
+        System.out.println(mouseBoard());
+        System.out.println(mouseSquare());
     }
+
     @Override
     public void resize(int width, int height){
         viewport.update(width, height, true); 
@@ -67,7 +75,7 @@ public class FirstDrawing extends ApplicationAdapter
         renderer.dispose(); 
         batch.dispose(); 
     }
-    
+
     private void renderSetup(){
         viewport.apply(); 
 
@@ -77,21 +85,16 @@ public class FirstDrawing extends ApplicationAdapter
 
         //draw everything on the screen
         renderer.setProjectionMatrix(viewport.getCamera().combined);
-        
+
     }
-    
+
     private void drawBoard(){
         renderer.begin(ShapeType.Filled);
 
-        //if(Gdx.input.justTouched()){
-            mouseX = Gdx.input.getX();
-            mouseY = Gdx.input.getY();
-        //}
-        Vector2 v = viewport.unproject(new Vector2(mouseX,mouseY));
         for(int y = 0; y<=8; y++){
 
             for(int x = 0; x<=8; x++){
-                if((int)v.x/100==x && (int)v.y/100==y)
+                if((int)mouseClick.x/100==x && (int)mouseClick.y/100==y)
                     renderer.setColor(Color.GREEN);
                 else if(isWhite)
                     renderer.setColor(Color.BLACK);
@@ -104,12 +107,27 @@ public class FirstDrawing extends ApplicationAdapter
         isWhite = !isWhite;
         renderer.end();
     }
-    
+
+    /*
     private Vector2 mouseBoard(){
-        return new Vector2(mouseX/100, mouseY/100);
+    Vector2 v = viewport.unproject(new Vector2(mouseX/GLOBAL.SQUARE_SIZE,mouseY/GLOBAL.SQUARE_SIZE));
     }
-    
+     */
     private Vector2 mouseSquare(){
-        return new Vector2(mouseX%100, mouseY%100);
+        return viewport.unproject(new Vector2(mouseX%GLOBAL.SQUARE_SIZE,mouseY%GLOBAL.SQUARE_SIZE));
+    }
+
+    private void processInput(){
+        if(Gdx.input.justTouched()){
+            selectedSquare = mouseBoard();
+        }
+    }
+
+    private void update(){
+        if(Gdx.input.justTouched()){
+            mouseX = Gdx.input.getX();
+            mouseY = Gdx.input.getY();
+        }
+        mouseClick = viewport.unproject(new Vector2(mouseX,mouseY));
     }
 }

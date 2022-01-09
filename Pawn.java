@@ -1,11 +1,9 @@
 import com.badlogic.gdx.math.Vector2;
 
 class Pawn extends Piece{
-    public Pawn(int piece, Vector2 position){
-        super(piece, position);
+    public Pawn(int color, Vector2 position){
+        super(0, color, position);
     }
     
-    public void setPosition(float x, float y){
-        
-    }
+    
 }
