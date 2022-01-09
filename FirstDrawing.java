@@ -59,10 +59,11 @@ public class FirstDrawing extends ApplicationAdapter
     public void render(){
         renderSetup();
 
+        update();
         drawBoard();
 
         System.out.println(mouseBoard());
-        System.out.println(mouseSquare());
+        //System.out.println(mouseClick);
     }
 
     @Override
@@ -108,20 +109,24 @@ public class FirstDrawing extends ApplicationAdapter
         renderer.end();
     }
 
-    /*
     private Vector2 mouseBoard(){
-    Vector2 v = viewport.unproject(new Vector2(mouseX/GLOBAL.SQUARE_SIZE,mouseY/GLOBAL.SQUARE_SIZE));
+        int x = mouseX/GLOBAL.SQUARE_SIZE;
+        int y = (-mouseY/GLOBAL.SQUARE_SIZE+7);
+        Vector2 v = new Vector2(x,y);
+        return v;
     }
-     */
+
     private Vector2 mouseSquare(){
         return viewport.unproject(new Vector2(mouseX%GLOBAL.SQUARE_SIZE,mouseY%GLOBAL.SQUARE_SIZE));
     }
 
+    /*
     private void processInput(){
-        if(Gdx.input.justTouched()){
-            selectedSquare = mouseBoard();
-        }
+    if(Gdx.input.justTouched()){
+    selectedSquare = mouseBoard();
     }
+    }
+     */
 
     private void update(){
         if(Gdx.input.justTouched()){
