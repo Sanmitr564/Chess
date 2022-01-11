@@ -39,4 +39,5 @@ public class GLOBAL{
     public static final int G = 6;
     public static final int H = 7;
     
+    
 }
